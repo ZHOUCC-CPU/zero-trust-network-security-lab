@@ -1,0 +1,14 @@
+=== V0.4 FINAL CLEANUP EVIDENCE ===
+UTC_TIME=2026-10-18T14:47:47Z
+PASS|namespace|removed: zt-gw-ns
+PASS|namespace|removed: employee-ns
+PASS|namespace|removed: app-ns
+PASS|namespace|removed: data-ns
+PASS|interface|absent: gw-emp
+PASS|interface|absent: gw-app
+PASS|interface|absent: gw-data
+PASS|interface|absent: emp-gw
+PASS|interface|absent: app-gw
+PASS|interface|absent: data-gw
+PASS|state|removed
+SUMMARY|residual_failures|0

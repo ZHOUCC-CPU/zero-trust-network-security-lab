@@ -1,0 +1,42 @@
+=== V0.3 REAL EXPERIMENT EVIDENCE ===
+UTC_TIME=2026-10-18T13:19:43Z
+PASS|namespace|exists: employee-ns
+PASS|namespace|exists: app-ns
+PASS|namespace|exists: data-ns
+PASS|namespace|exists: zt-gw-ns
+PASS|has_iface|zt-gw-ns gw-emp
+PASS|has_iface|zt-gw-ns gw-app
+PASS|has_iface|zt-gw-ns gw-data
+PASS|has_iface|employee-ns emp-gw
+PASS|has_iface|app-ns app-gw
+PASS|has_iface|data-ns data-gw
+PASS|is_veth|zt-gw-ns gw-emp
+PASS|is_veth|zt-gw-ns gw-app
+PASS|is_veth|zt-gw-ns gw-data
+PASS|is_veth|employee-ns emp-gw
+PASS|is_veth|app-ns app-gw
+PASS|is_veth|data-ns data-gw
+PASS|has_exact_addr|zt-gw-ns gw-emp 10.200.10.1/30
+PASS|has_exact_addr|employee-ns emp-gw 10.200.10.2/30
+PASS|has_exact_addr|zt-gw-ns gw-app 10.200.20.1/30
+PASS|has_exact_addr|app-ns app-gw 10.200.20.2/30
+PASS|has_exact_addr|zt-gw-ns gw-data 10.200.30.1/30
+PASS|has_exact_addr|data-ns data-gw 10.200.30.2/30
+PASS|has_route|employee-ns 10.200.20.0/30 via 10.200.10.1 dev emp-gw
+PASS|has_route|employee-ns 10.200.30.0/30 via 10.200.10.1 dev emp-gw
+PASS|has_route|app-ns 10.200.10.0/30 via 10.200.20.1 dev app-gw
+PASS|has_route|app-ns 10.200.30.0/30 via 10.200.20.1 dev app-gw
+PASS|has_route|data-ns 10.200.10.0/30 via 10.200.30.1 dev data-gw
+PASS|has_route|data-ns 10.200.20.0/30 via 10.200.30.1 dev data-gw
+PASS|forwarding|zt-gw-ns IPv4 forwarding is enabled
+PASS|ping_from|employee-ns 10.200.10.1
+PASS|ping_from|app-ns 10.200.20.1
+PASS|ping_from|data-ns 10.200.30.1
+INFO|reachability|The three zone-to-gateway checks are topology checks, not authorization tests.
+PASS|ping_from|employee-ns 10.200.20.2
+PASS|ping_from|employee-ns 10.200.30.2
+PASS|ping_from|app-ns 10.200.30.2
+INFO|access-control|V0.3 has no firewall policy; cross-zone reachability is expected topology behavior and must not be interpreted as an access-control failure.
+PASS|ownership|valid root-owned state marker: /var/lib/ztlab-v03/state
+SUMMARY|topology_failures|0
+CHECK_EXIT_CODE=0

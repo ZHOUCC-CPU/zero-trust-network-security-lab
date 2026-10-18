@@ -1,0 +1,12 @@
+=== V0.4 FIREWALL EVIDENCE ===
+UTC_TIME=2026-10-18T13:55:46Z
+table inet ztlab_v04 { # handle 2
+	chain forward { # handle 1
+		type filter hook forward priority filter; policy drop;
+		ct state established,related counter packets 22 bytes 1811 accept # handle 2
+		iifname "gw-emp" oifname "gw-app" ip saddr 10.200.10.2 ip daddr 10.200.20.2 tcp dport 8080 ct state new counter packets 1 bytes 60 accept # handle 3
+		iifname "gw-app" oifname "gw-data" ip saddr 10.200.20.2 ip daddr 10.200.30.2 tcp dport 5432 ct state new counter packets 1 bytes 60 accept # handle 4
+		counter packets 12 bytes 792 drop # handle 5
+	}
+}
+SNAPSHOT_EXIT_CODE=0
