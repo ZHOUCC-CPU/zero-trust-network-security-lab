@@ -1,0 +1,15 @@
+=== V0.6 BASELINE ROUND 02 ===
+STARTED_UTC=2026-10-23T15:45:50+00:00
+PASS|preflight|three isolated test servers are listening
+=== V0.6 BASELINE SIX-SCENARIO TEST ===
+PASS|employee_to_app_tcp8080|Baseline HTTP 200 with expected body
+PASS|app_to_data_tcp5432|Baseline HTTP 200 with expected body
+PASS|employee_to_data_icmp|Baseline ICMP reachable
+PASS|employee_to_data_tcp5432|Baseline HTTP 200 with expected body
+PASS|employee_to_app_tcp8081|Baseline HTTP 200 with expected body
+PASS|data_to_app_tcp8080|Baseline HTTP 200 with expected body
+SUMMARY|passed|6
+SUMMARY|failed|0
+BASELINE_RESULT=PASS
+RUNNER_EXIT_CODE=0
+FINISHED_UTC=2026-10-23T15:45:52+00:00

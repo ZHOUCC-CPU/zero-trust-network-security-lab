@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "scenarios": [
+    {
+      "id": "employee_to_app_tcp8080",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8080,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "ALLOW",
+      "expected_http_body": "ZT_LAB_V04_HTTP_OK"
+    },
+    {
+      "id": "app_to_data_tcp5432",
+      "source_namespace": "app-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "tcp",
+      "destination_port": 5432,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "ALLOW",
+      "expected_http_body": "ZT_LAB_V04_TCP5432_OK"
+    },
+    {
+      "id": "employee_to_data_icmp",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "icmp",
+      "destination_port": null,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "DENY",
+      "expected_http_body": null
+    },
+    {
+      "id": "employee_to_data_tcp5432",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "tcp",
+      "destination_port": 5432,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "DENY",
+      "expected_http_body": "ZT_LAB_V04_TCP5432_OK"
+    },
+    {
+      "id": "employee_to_app_tcp8081",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8081,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "DENY",
+      "expected_http_body": "ZT_LAB_V04_PORT8081"
+    },
+    {
+      "id": "data_to_app_tcp8080",
+      "source_namespace": "data-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8080,
+      "baseline_expected": "ALLOW",
+      "segmented_expected": "DENY",
+      "expected_http_body": "ZT_LAB_V04_HTTP_OK"
+    }
+  ]
+}

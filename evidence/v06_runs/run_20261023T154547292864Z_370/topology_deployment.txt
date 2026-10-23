@@ -1,0 +1,2 @@
+V0.3 topology created and recorded in /var/lib/ztlab-v03/state.
+No NAT, external route, or formal firewall policy configured.

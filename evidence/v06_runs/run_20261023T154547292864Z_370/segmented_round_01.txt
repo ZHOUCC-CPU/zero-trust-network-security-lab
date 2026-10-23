@@ -1,0 +1,15 @@
+=== V0.6 SEGMENTED ROUND 01 ===
+STARTED_UTC=2026-10-23T15:45:54+00:00
+PASS|preflight|three isolated test servers are listening
+=== V0.4 SIX-SCENARIO REGRESSION ===
+PASS|employee_to_app_tcp8080|HTTP 200 and allow counter +1
+PASS|app_to_data_tcp5432|HTTP 200 and allow counter +1
+PASS|employee_to_data_icmp|ping failed and drop counter +2
+PASS|employee_to_data_tcp5432|TCP timed out and drop counter +3
+PASS|employee_to_app_tcp8081|TCP timed out and drop counter +3
+PASS|data_to_app_tcp8080|TCP timed out and drop counter +3
+SUMMARY|passed|6
+SUMMARY|failed|0
+REGRESSION_RESULT=PASS
+RUNNER_EXIT_CODE=0
+FINISHED_UTC=2026-10-23T15:46:07+00:00

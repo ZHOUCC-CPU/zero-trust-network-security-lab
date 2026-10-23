@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "project_version": "V0.6",
+  "type": "baseline_versus_segmented_repeated_experiment",
+  "rounds_per_condition_requested": 3,
+  "rounds_attempted": {
+    "baseline": 3,
+    "segmented": 3
+  },
+  "rounds_passed": {
+    "baseline": 3,
+    "segmented": 3
+  },
+  "scenario_executions_verified": 36,
+  "cleanup_verified": true,
+  "all_passed": true,
+  "issues": [],
+  "rounds": [
+    {
+      "condition": "baseline",
+      "round": 1,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/baseline_round_01.txt",
+      "log_sha256": "c69ce75a30e8390c453fbef4e2929a9d1cbc8f3f24c4af856acefdca3f7c4121",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "condition": "baseline",
+      "round": 2,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/baseline_round_02.txt",
+      "log_sha256": "324fc78178e4b551e309f2f53b070c1a1bc612f19d6010775992bbf1d36773c7",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "condition": "baseline",
+      "round": 3,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/baseline_round_03.txt",
+      "log_sha256": "130c059a13886cec44779774b5b46b4a9c278b4aaa538fccb24296030f9fcb6b",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "condition": "segmented",
+      "round": 1,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/segmented_round_01.txt",
+      "log_sha256": "63b1c13f6f17d220073df6d96d594a744d5351e6f1763dd3f0dd5a2209c4239e",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "condition": "segmented",
+      "round": 2,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/segmented_round_02.txt",
+      "log_sha256": "289d68c9990faadb0266f8f8614f68eac638da9bddb17953653aa3679721e654",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "condition": "segmented",
+      "round": 3,
+      "log_file": "evidence/v06_runs/run_20261023T154547292864Z_370/segmented_round_03.txt",
+      "log_sha256": "a85c344032a00d0617ce0e9f4bd18229467856409210bd3bd4203da46e7ce136",
+      "runner_exit_code": 0,
+      "valid": true,
+      "issues": []
+    }
+  ],
+  "note": "Six defined scenarios repeated three times per condition; this is not 36 distinct attacks."
+}
