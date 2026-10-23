@@ -1,0 +1,7 @@
+source_log,source_sha256,scenario,expected_behavior,verdict,detail,observed_rule_counter_increase_packets
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,employee_to_app_tcp8080,ALLOW,PASS,HTTP 200 and allow counter +1,1
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,app_to_data_tcp5432,ALLOW,PASS,HTTP 200 and allow counter +1,1
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,employee_to_data_icmp,DENY,PASS,ping failed and drop counter +2,2
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,employee_to_data_tcp5432,DENY,PASS,TCP timed out and drop counter +3,3
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,employee_to_app_tcp8081,DENY,PASS,TCP timed out and drop counter +3,3
+evidence/V0.4_regression_20261018T144222Z.txt,65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e,data_to_app_tcp8080,DENY,PASS,TCP timed out and drop counter +3,3

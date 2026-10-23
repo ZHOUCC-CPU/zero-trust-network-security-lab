@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "report_type": "offline_conversion_of_existing_experiment_log",
+  "new_network_test_executed": false,
+  "generated_at_utc": "2026-10-20T04:16:13+00:00",
+  "source_log": "evidence/V0.4_regression_20261018T144222Z.txt",
+  "source_sha256": "65c011080954e0eca2bd9262c6686d3b9d57b21b9dbef3b615e79e0f0161651e",
+  "validation": {
+    "passed": true,
+    "preflight_passed": true,
+    "expected_scenarios": 6,
+    "passed_scenarios": 6,
+    "failed_scenarios": 0,
+    "recorded_runner_exit_code": 0
+  },
+  "scenarios": [
+    {
+      "scenario": "employee_to_app_tcp8080",
+      "expected_behavior": "ALLOW",
+      "verdict": "PASS",
+      "detail": "HTTP 200 and allow counter +1",
+      "observed_rule_counter_increase_packets": 1
+    },
+    {
+      "scenario": "app_to_data_tcp5432",
+      "expected_behavior": "ALLOW",
+      "verdict": "PASS",
+      "detail": "HTTP 200 and allow counter +1",
+      "observed_rule_counter_increase_packets": 1
+    },
+    {
+      "scenario": "employee_to_data_icmp",
+      "expected_behavior": "DENY",
+      "verdict": "PASS",
+      "detail": "ping failed and drop counter +2",
+      "observed_rule_counter_increase_packets": 2
+    },
+    {
+      "scenario": "employee_to_data_tcp5432",
+      "expected_behavior": "DENY",
+      "verdict": "PASS",
+      "detail": "TCP timed out and drop counter +3",
+      "observed_rule_counter_increase_packets": 3
+    },
+    {
+      "scenario": "employee_to_app_tcp8081",
+      "expected_behavior": "DENY",
+      "verdict": "PASS",
+      "detail": "TCP timed out and drop counter +3",
+      "observed_rule_counter_increase_packets": 3
+    },
+    {
+      "scenario": "data_to_app_tcp8080",
+      "expected_behavior": "DENY",
+      "verdict": "PASS",
+      "detail": "TCP timed out and drop counter +3",
+      "observed_rule_counter_increase_packets": 3
+    }
+  ]
+}

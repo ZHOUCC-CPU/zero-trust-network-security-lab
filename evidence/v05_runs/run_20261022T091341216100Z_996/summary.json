@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "report_type": "live_repeated_v04_regression",
+  "new_network_tests_executed": true,
+  "run_started_as_normal_user": true,
+  "rounds_requested": 3,
+  "rounds_attempted": 3,
+  "rounds_passed": 3,
+  "all_passed": true,
+  "rounds": [
+    {
+      "round": 1,
+      "started_at_utc": "2026-10-22T09:13:41+00:00",
+      "finished_at_utc": "2026-10-22T09:13:54+00:00",
+      "log_file": "evidence/v05_runs/run_20261022T091341216100Z_996/round_01.txt",
+      "log_sha256": "4a3c5f25c352abc2ac81dda64bb6bb7209840639743a1c49c1027b66ee50b3bd",
+      "runner_exit_code": 0,
+      "scenario_pass_count": 6,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "round": 2,
+      "started_at_utc": "2026-10-22T09:13:54+00:00",
+      "finished_at_utc": "2026-10-22T09:14:04+00:00",
+      "log_file": "evidence/v05_runs/run_20261022T091341216100Z_996/round_02.txt",
+      "log_sha256": "b960623ca4a143a8159e1ed3fbecba11ebbd588ba992359d7200546e13357731",
+      "runner_exit_code": 0,
+      "scenario_pass_count": 6,
+      "valid": true,
+      "issues": []
+    },
+    {
+      "round": 3,
+      "started_at_utc": "2026-10-22T09:14:04+00:00",
+      "finished_at_utc": "2026-10-22T09:14:17+00:00",
+      "log_file": "evidence/v05_runs/run_20261022T091341216100Z_996/round_03.txt",
+      "log_sha256": "915b19577358cf3163e5fa5cb372e18553ed0c49fd015ce8ba339e78f58e5c4f",
+      "runner_exit_code": 0,
+      "scenario_pass_count": 6,
+      "valid": true,
+      "issues": []
+    }
+  ],
+  "note": "This tool runs tests only; topology and nftables setup/teardown are separate."
+}
