@@ -1,0 +1,9 @@
+{
+  "scenario_id": "employee_to_app_tcp8081",
+  "round": 1,
+  "observed_behavior": "DENY",
+  "result": "PASS",
+  "exit_code": 0,
+  "detail": "TCP connection timed out; target service confirmed listening",
+  "underlying_probe_exit_code": 0
+}

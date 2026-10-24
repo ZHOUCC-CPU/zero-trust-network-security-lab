@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "version": "V0.8",
+  "scope": "segmented_namespace_only",
+  "policy_source": "deployment/v04_gateway_filter.nft",
+  "scenario_source": "tests/v06_scenario_matrix.json",
+  "audit_method": "nftables_rule_counter_delta",
+  "table": "inet ztlab_v04",
+  "chain": "forward",
+  "rounds": 3,
+  "counter_names": [
+    "allow_emp_app",
+    "allow_app_data",
+    "drop",
+    "established_related"
+  ],
+  "scenarios": [
+    {
+      "id": "employee_to_app_tcp8080",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8080,
+      "expected_verdict": "ALLOW",
+      "expected_counter": "allow_emp_app",
+      "expected_counter_change": "increase"
+    },
+    {
+      "id": "app_to_data_tcp5432",
+      "source_namespace": "app-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "tcp",
+      "destination_port": 5432,
+      "expected_verdict": "ALLOW",
+      "expected_counter": "allow_app_data",
+      "expected_counter_change": "increase"
+    },
+    {
+      "id": "employee_to_data_icmp",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "icmp",
+      "destination_port": null,
+      "expected_verdict": "DENY",
+      "expected_counter": "drop",
+      "expected_counter_change": "increase"
+    },
+    {
+      "id": "employee_to_data_tcp5432",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.30.2",
+      "protocol": "tcp",
+      "destination_port": 5432,
+      "expected_verdict": "DENY",
+      "expected_counter": "drop",
+      "expected_counter_change": "increase"
+    },
+    {
+      "id": "employee_to_app_tcp8081",
+      "source_namespace": "employee-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8081,
+      "expected_verdict": "DENY",
+      "expected_counter": "drop",
+      "expected_counter_change": "increase"
+    },
+    {
+      "id": "data_to_app_tcp8080",
+      "source_namespace": "data-ns",
+      "destination_ip": "10.200.20.2",
+      "protocol": "tcp",
+      "destination_port": 8080,
+      "expected_verdict": "DENY",
+      "expected_counter": "drop",
+      "expected_counter_change": "increase"
+    }
+  ],
+  "safety": {
+    "isolated_namespaces_only": true,
+    "modify_host_firewall": false,
+    "external_traffic": false,
+    "enable_kernel_logging": false,
+    "require_owned_topology": true
+  },
+  "limitations": [
+    "Counters are aggregate packet counts, not individual events.",
+    "Counter deltas do not identify users or processes.",
+    "Concurrent traffic can affect counter attribution.",
+    "An increased counter alone does not prove an application result."
+  ]
+}

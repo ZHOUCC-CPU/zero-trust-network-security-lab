@@ -1,0 +1,9 @@
+{
+  "scenario_id": "app_to_data_tcp5432",
+  "round": 3,
+  "observed_behavior": "ALLOW",
+  "result": "PASS",
+  "exit_code": 0,
+  "detail": "HTTP 200 and expected response body",
+  "underlying_probe_exit_code": 0
+}

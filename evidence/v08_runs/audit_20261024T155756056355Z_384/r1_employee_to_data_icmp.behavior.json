@@ -1,0 +1,9 @@
+{
+  "scenario_id": "employee_to_data_icmp",
+  "round": 1,
+  "observed_behavior": "DENY",
+  "result": "PASS",
+  "exit_code": 0,
+  "detail": "2 ICMP echo packets transmitted; no replies; expected drop counter increment",
+  "underlying_probe_exit_code": 1
+}

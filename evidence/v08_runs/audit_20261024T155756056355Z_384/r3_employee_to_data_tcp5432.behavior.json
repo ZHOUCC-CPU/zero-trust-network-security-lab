@@ -1,0 +1,9 @@
+{
+  "scenario_id": "employee_to_data_tcp5432",
+  "round": 3,
+  "observed_behavior": "DENY",
+  "result": "PASS",
+  "exit_code": 0,
+  "detail": "TCP connection timed out; target service confirmed listening",
+  "underlying_probe_exit_code": 0
+}
