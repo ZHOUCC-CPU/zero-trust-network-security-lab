@@ -1,0 +1,9 @@
+table inet ztlab_v04 {
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		ct state established,related counter packets 0 bytes 0 accept
+		iifname "gw-emp" oifname "gw-app" ip saddr 10.200.10.2 ip daddr 10.200.20.2 tcp dport 8080 ct state new counter packets 0 bytes 0 accept
+		iifname "gw-app" oifname "gw-data" ip saddr 10.200.20.2 ip daddr 10.200.30.2 tcp dport 5432 ct state new counter packets 0 bytes 0 accept
+		counter packets 0 bytes 0 drop
+	}
+}

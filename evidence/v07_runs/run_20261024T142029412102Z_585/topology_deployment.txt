@@ -1,0 +1,8 @@
+EXIT_CODE=0
+ELAPSED_SECONDS=0.645354
+STDOUT:
+V0.3 topology created and recorded in /var/lib/ztlab-v03/state.
+No NAT, external route, or formal firewall policy configured.
+
+STDERR:
+

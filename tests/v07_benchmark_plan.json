@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "version": "V0.7",
+  "conditions": [
+    "baseline",
+    "segmented"
+  ],
+  "rounds_per_condition": 3,
+  "flows": [
+    {
+      "id": "employee_to_app_tcp8080",
+      "source_namespace": "employee-ns",
+      "destination_namespace": "app-ns",
+      "destination_ip": "10.200.20.2",
+      "port": 8080
+    },
+    {
+      "id": "app_to_data_tcp5432",
+      "source_namespace": "app-ns",
+      "destination_namespace": "data-ns",
+      "destination_ip": "10.200.30.2",
+      "port": 5432
+    }
+  ],
+  "throughput": {
+    "tool": "iperf3",
+    "protocol": "TCP",
+    "duration_seconds": 5,
+    "parallel_streams": 1,
+    "target_bitrate_mbps": 50
+  },
+  "latency": {
+    "method": "TCP_CONNECT",
+    "probes_per_flow": 30,
+    "timeout_seconds": 2
+  },
+  "resource_metrics": [
+    "cpu_usage",
+    "memory_usage",
+    "deployment_duration",
+    "cleanup_duration",
+    "evidence_bytes"
+  ],
+  "safety": {
+    "isolated_namespaces_only": true,
+    "no_host_firewall_modification": true,
+    "no_external_traffic": true,
+    "no_background_daemon": true
+  }
+}

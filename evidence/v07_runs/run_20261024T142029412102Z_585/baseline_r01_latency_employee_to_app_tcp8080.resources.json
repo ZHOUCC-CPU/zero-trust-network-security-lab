@@ -1,0 +1,47 @@
+{
+  "scope": "WSL_guest_overall",
+  "sample_interval_seconds": 0.25,
+  "samples_collected": 7,
+  "mean_cpu_percent": 5.18761,
+  "peak_cpu_percent": 19.6078,
+  "initial_memory_used_estimate_mib": 375.3047,
+  "peak_memory_used_estimate_mib": 392.9141,
+  "samples": [
+    {
+      "cpu_percent": 19.6078,
+      "memory_used_estimate_mib": 386.5156,
+      "memory_available_mib": 2522.7188
+    },
+    {
+      "cpu_percent": 12.7451,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    },
+    {
+      "cpu_percent": 1.9802,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    },
+    {
+      "cpu_percent": 0.9901,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    },
+    {
+      "cpu_percent": 0,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    },
+    {
+      "cpu_percent": 0.9901,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    },
+    {
+      "cpu_percent": 0,
+      "memory_used_estimate_mib": 392.9141,
+      "memory_available_mib": 2516.3203
+    }
+  ],
+  "sampler_errors": []
+}

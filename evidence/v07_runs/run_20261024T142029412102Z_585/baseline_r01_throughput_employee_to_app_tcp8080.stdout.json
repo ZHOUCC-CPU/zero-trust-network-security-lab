@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "flow_id": "employee_to_app_tcp8080",
+  "source_namespace": "employee-ns",
+  "destination_ip": "10.200.20.2",
+  "destination_port": 8080,
+  "duration_seconds": 5,
+  "target_bitrate_mbps": 50,
+  "measured_send_mbps": 50.116029,
+  "measured_receive_mbps": 50.114055,
+  "retransmits": 0,
+  "result": "PASS"
+}

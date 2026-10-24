@@ -1,0 +1,4 @@
+EXIT_CODE=0
+Cleanup completed; verified project namespaces are absent.
+
+

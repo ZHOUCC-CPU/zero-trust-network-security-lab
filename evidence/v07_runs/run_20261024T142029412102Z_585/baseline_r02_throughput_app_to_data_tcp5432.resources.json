@@ -1,0 +1,112 @@
+{
+  "scope": "WSL_guest_overall",
+  "sample_interval_seconds": 0.25,
+  "samples_collected": 20,
+  "mean_cpu_percent": 25.37652,
+  "peak_cpu_percent": 27.8846,
+  "initial_memory_used_estimate_mib": 369.0391,
+  "peak_memory_used_estimate_mib": 377.5703,
+  "samples": [
+    {
+      "cpu_percent": 27.8846,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.2525,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4717,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.2525,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.2525,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 24.7525,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 24.7525,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.0,
+      "memory_used_estimate_mib": 377.3516,
+      "memory_available_mib": 2531.8828
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 24.7525,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 25.7426,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 24.2424,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 25.7426,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 25.4902,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    },
+    {
+      "cpu_percent": 25.0,
+      "memory_used_estimate_mib": 377.5703,
+      "memory_available_mib": 2531.6641
+    }
+  ],
+  "sampler_errors": []
+}
