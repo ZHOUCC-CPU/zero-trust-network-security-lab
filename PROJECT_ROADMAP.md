@@ -38,17 +38,35 @@
 - Measure CPU, memory, latency, throughput, setup/teardown time, and evidence size.
 - Compare results with the stated resource budget and record uncertainty.
 
-## V0.8 - Research analysis and reproducibility review
+## V0.8 - Security audit and reproducibility (completed)
 
-- Analyze results against the research questions.
-- Review scripts, documentation, evidence naming, cleanup, and repeatability.
-- Mark all unmeasured claims as limitations or future work.
+- Completed 18/18 real traffic audit scenarios across three rounds.
+- Captured nftables rule counters before and after each scenario.
+- Recorded behavior evidence, JSON/CSV results and SHA-256 manifests.
+- Independently validated the audit evidence and normal cleanup.
+- Abnormal-interruption recovery is not fully established.
 
-## V0.9 - Release candidate
+Evidence: [V0.8 Experiment Report](reports/V0.8_EXPERIMENT_REPORT.md).
 
-- Run a clean end-to-end trial in the selected Linux environment.
-- Validate that the repository contains no secrets, host-wide commands, or unverified success claims.
-- Prepare a reproducibility checklist and final report draft.
+Git commit: `cb7c124` (24 October 2026).
+
+## V0.9 - Release candidate (locally validated)
+
+- Implement independent read-only resource integrity checks.
+- Verify project namespace, host interface and state-file absence.
+- Run negative security regression tests.
+- Review privileged execution and cleanup safety.
+- Update README, roadmap and reproducibility documentation.
+- Complete end-to-end release validation.
+- Review repository contents for secrets and unsupported claims.
+- Prepare final acceptance evidence and local Git commit.
+
+Local acceptance results: 18/18 live scenarios, 3/3 round-level
+counter checks, 15/15 evidence hashes and 10/10 offline regression
+tests passed. Normal cleanup and resource integrity checks passed.
+
+These findings do not establish complete fault recovery,
+independent cross-host reproduction or production readiness.
 
 ## V1.0 - Research release
 

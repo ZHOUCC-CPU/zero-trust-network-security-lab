@@ -2,7 +2,7 @@
 
 **An evidence-backed Linux network microsegmentation lab using network namespaces, veth, routing, nftables, and automated policy tests.**
 
-**Project status:** V0.4 core experiment completed and documented (18 October 2026). V0.5–V1.0 research and hardening remain in progress or planned.
+**Project status:** V0.9 Release Candidate passed local validation (25 October 2026). V1.0 has not been released.
 
 > **Scope:** This is a controlled, isolated network **microsegmentation** prototype inspired by Zero Trust principles. It is **not** a complete Zero Trust Architecture: it does not implement identity-based authentication, device posture verification, continuous authorization, or enterprise policy orchestration.
 
@@ -100,18 +100,51 @@ Evidence:
 
 These findings describe **specific observed test runs**. They do not establish complete coverage of unauthorized traffic, resistance to all bypass techniques, or generalizable performance results.
 
+### V0.5 — Automated regression
+
+Three rounds of the six-scenario regression completed with **18/18 passing executions**.
+
+Evidence and limitations: [`reports/V0.5_EXPERIMENT_REPORT.md`](reports/V0.5_EXPERIMENT_REPORT.md).
+
+### V0.6 — Baseline versus segmentation
+
+Three baseline rounds and three segmented rounds produced **36/36 passing scenario executions**, measured against the predefined expectations.
+
+Evidence and limitations: [`reports/V0.6_EXPERIMENT_REPORT.md`](reports/V0.6_EXPERIMENT_REPORT.md).
+
+### V0.7 — Performance and resource assessment
+
+Collected bounded network-throughput, TCP-connection-timing, and WSL guest-wide resource measurements. Small observed differences are not treated as statistically established effects.
+
+Evidence and limitations: [`reports/V0.7_EXPERIMENT_REPORT.md`](reports/V0.7_EXPERIMENT_REPORT.md).
+
+### V0.8 — Security audit and reproducibility
+
+Three rounds of six real traffic scenarios passed **18/18**. The audit captured nftables rule counters before and after each scenario, recorded behavior evidence, and independently validated the structured results. Guarded cleanup passed.
+
+Evidence and limitations: [`reports/V0.8_EXPERIMENT_REPORT.md`](reports/V0.8_EXPERIMENT_REPORT.md).
+
+### V0.9 — Release Candidate validated locally
+
+Local validation completed: **18/18 real access scenarios**, **3/3 round-level counter checks**, **15/15 evidence file hashes**, and **10/10 offline resource-integrity regression tests** passed. Normal cleanup and independent resource inspection passed. See [`reports/V0.9_EXPERIMENT_REPORT.md`](reports/V0.9_EXPERIMENT_REPORT.md). Independent reproduction on another host remains unverified. Simulated negative cases do not establish recovery from abnormal interruptions.
+
 ## Repository structure
+
+The following is a selected map of release-relevant files.
+It is not an exhaustive inventory.
 
 ```text
 .
 ├── README.md
 ├── PROJECT_ROADMAP.md
-├── .gitignore
 ├── architecture/
 │   ├── ARCHITECTURE_DESIGN.md
 │   └── DEPLOYMENT_SAFETY.md
 ├── deployment/
 │   └── v04_gateway_filter.nft
+├── docs/
+│   ├── V0.7_BENCHMARK_DESIGN.md
+│   └── V0.8_AUDIT_DESIGN.md
 ├── experiments/
 │   └── EXPERIMENT_PLAN.md
 ├── scripts/
@@ -119,19 +152,41 @@ These findings describe **specific observed test runs**. They do not establish c
 │   ├── topology_down.sh
 │   ├── check_topology.sh
 │   ├── load_v04_policy.sh
-│   └── test_v04_firewall.sh
+│   ├── test_v04_firewall.sh
+│   ├── v07_benchmark_orchestrator.py
+│   ├── v08_counter_parser.py
+│   ├── v08_counter_delta.py
+│   ├── v08_evidence_validator.py
+│   ├── v08_finish_release.py
+│   └── v09_resource_integrity.py
 ├── tests/
-│   └── test_control_logic.sh
+│   ├── test_control_logic.sh
+│   ├── v08_audit_plan.json
+│   └── test_v09_resource_integrity.py
 ├── evidence/
+│   └── v08_runs/
 └── reports/
-    ├── RESEARCH_PROPOSAL_DRAFT.md
     ├── V0.3_EXPERIMENT_REPORT.md
-    └── V0.4_EXPERIMENT_REPORT.md
+    ├── V0.4_EXPERIMENT_REPORT.md
+    ├── V0.5_EXPERIMENT_REPORT.md
+    ├── V0.6_EXPERIMENT_REPORT.md
+    ├── V0.7_EXPERIMENT_REPORT.md
+    └── V0.8_EXPERIMENT_REPORT.md
 ```
+
+V0.8 audit evidence is stored under
+[`evidence/v08_runs/`](evidence/v08_runs/), including
+per-scenario snapshots, behavior records, JSON/CSV results,
+and a SHA-256 manifest.
+
+The V0.9 resource-integrity checker and its tests are under
+development and have not yet been included in a release commit.
 
 ## Safety and reproducibility
 
 Privileged topology and firewall operations must be run only in an authorized test environment. The lab uses project-owned namespaces, and the policy is installed inside `zt-gw-ns` rather than the host network namespace.
+
+**Host network boundary:** During topology deployment, the project temporarily creates named veth pairs in the default network namespace before moving their endpoints into the isolated lab namespaces. This is a limited, temporary host-network operation, not a claim of zero host impact. The workflow does not intentionally alter host-wide nftables rules, default routes, or IPv4 forwarding settings. Unexpected interruptions may leave resources requiring identity-verified manual review.
 
 **Important:** The working repository may reside on a Windows-mounted path (`/mnt/d/...`). Do **not** run privileged scripts directly from that mutable mount. Review and stage the scripts and nftables file on an Ubuntu-native root-owned directory first, following [`architecture/DEPLOYMENT_SAFETY.md`](architecture/DEPLOYMENT_SAFETY.md).
 
@@ -149,16 +204,18 @@ The V0.3 connectivity checker expects inter-zone ICMP reachability and therefore
 
 The repository includes simulated/control-logic tests under `tests/`; those are not substitutes for live network tests. Do not infer abnormal-interruption recovery or rollback safety from a successful normal teardown.
 
+**V0.9 reproducibility checklist:** [`docs/V0.9_REPRODUCIBILITY_CHECKLIST.md`](docs/V0.9_REPRODUCIBILITY_CHECKLIST.md) documents environment requirements, offline evidence validation, read-only resource inspection, privileged reproduction precautions, and pending release acceptance criteria. The WSL project lock under `/run/lock` may disappear after a restart; a missing lock must be handled through a separately reviewed initialization procedure rather than silently bypassed.
+
 ## Limitations and planned research
 
 - No identity verification, device trust, continuous authorization, or application-level authentication is implemented.
 - The policy primarily addresses IPv4 forwarding; IPv6 behavior, spoofed source addresses, host traffic, and namespace-local input/output policy require additional examination.
-- Tests cover six representative cases rather than an exhaustive traffic matrix.
+- Access-control experiments cover six representative traffic scenarios, including repeated V0.8 runs; they do not constitute an exhaustive traffic matrix.
 - Privileged script failure modes, concurrent operations, interruption handling, and rollback have not been fully exercised in live tests.
-- No formal latency, throughput, CPU, memory, or statistical repeatability comparison has been completed.
+- V0.7 collected bounded throughput, TCP connection timing, and WSL guest-wide resource measurements; results do not establish statistically generalizable performance overhead.
 - Results apply to the stated WSL2 environment and recorded runs; they are not a production deployment certification.
 
-**Next milestones:** expand the test framework and machine-readable evidence (V0.5), conduct repeatable baseline-versus-segmented experiments (V0.6), measure resource/performance impact (V0.7), review research and reproducibility (V0.8), and prepare a validated release (V0.9–V1.0). See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md).
+**Next milestones:** V0.9 focuses on release readiness, independent resource checks, documentation, and reproducibility validation. V1.0 remains planned. See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md).
 
 ## Academic and portfolio purpose
 
