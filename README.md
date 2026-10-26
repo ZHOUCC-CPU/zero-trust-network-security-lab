@@ -179,8 +179,7 @@ V0.8 audit evidence is stored under
 per-scenario snapshots, behavior records, JSON/CSV results,
 and a SHA-256 manifest.
 
-The V0.9 resource-integrity checker and its tests are under
-development and have not yet been included in a release commit.
+The V0.9 resource-integrity checker and its tests were included in the verified local release commit `fb6bbd0`.
 
 ## Safety and reproducibility
 
@@ -204,7 +203,7 @@ The V0.3 connectivity checker expects inter-zone ICMP reachability and therefore
 
 The repository includes simulated/control-logic tests under `tests/`; those are not substitutes for live network tests. Do not infer abnormal-interruption recovery or rollback safety from a successful normal teardown.
 
-**V0.9 reproducibility checklist:** [`docs/V0.9_REPRODUCIBILITY_CHECKLIST.md`](docs/V0.9_REPRODUCIBILITY_CHECKLIST.md) documents environment requirements, offline evidence validation, read-only resource inspection, privileged reproduction precautions, and pending release acceptance criteria. The WSL project lock under `/run/lock` may disappear after a restart; a missing lock must be handled through a separately reviewed initialization procedure rather than silently bypassed.
+**V0.9 reproducibility checklist:** [`docs/V0.9_REPRODUCIBILITY_CHECKLIST.md`](docs/V0.9_REPRODUCIBILITY_CHECKLIST.md) documents environment requirements, offline evidence validation, read-only resource inspection, privileged reproduction precautions, and the V0.9 local acceptance criteria. The WSL project lock under `/run/lock` may disappear after a restart; a missing lock must be handled through a separately reviewed initialization procedure rather than silently bypassed.
 
 ## Limitations and planned research
 
@@ -215,7 +214,19 @@ The repository includes simulated/control-logic tests under `tests/`; those are 
 - V0.7 collected bounded throughput, TCP connection timing, and WSL guest-wide resource measurements; results do not establish statistically generalizable performance overhead.
 - Results apply to the stated WSL2 environment and recorded runs; they are not a production deployment certification.
 
-**Next milestones:** V0.9 focuses on release readiness, independent resource checks, documentation, and reproducibility validation. V1.0 remains planned. See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md).
+**Next milestone:** V1.0 is a documentation-focused research release consolidating the implemented topology, experiment methods, evidence, results, limitations, and WSL2 runtime decision. V1.0 has passed local documentation review and is a release candidate, not yet published. See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md), [`reports/V1.0_RESEARCH_EVIDENCE_INDEX.md`](reports/V1.0_RESEARCH_EVIDENCE_INDEX.md), and [`reports/V1.0_RESEARCH_REPORT.md`](reports/V1.0_RESEARCH_REPORT.md).
+
+## V1.0 research release materials (release candidate)
+
+The following documents support the V1.0
+research documentation phase:
+
+- [Research Portfolio Summary](docs/V1.0_PORTFOLIO_SUMMARY.md) — concise overview of the implemented network security lab, experimental findings, and research limitations.
+- [Runtime Decision and Reproducibility](docs/V1.0_RUNTIME_DECISION.md) — WSL2 runtime rationale, validated capabilities, safety boundaries, and unresolved VM comparison.
+
+V1.0 has passed local documentation review
+and is a release candidate, not yet released. The verified local
+V0.9 release baseline is Git commit `fb6bbd0`.
 
 ## Academic and portfolio purpose
 
