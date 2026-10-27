@@ -2,7 +2,9 @@
 
 **An evidence-backed Linux network microsegmentation lab using network namespaces, veth, routing, nftables, and automated policy tests.**
 
-**Project status:** V0.9 Release Candidate passed local validation (25 October 2026). V1.0 has not been released.
+**Project status:** V1.0 Research Release is published on GitHub. The release contains the reviewed V0.9 baseline, V1.0 research documentation, and preserved RC1 history.
+
+**正式版本：** [`v1.0.0` V1.0 Research Release](https://github.com/ZHOUCC-CPU/zero-trust-network-security-lab/releases/tag/v1.0.0)
 
 > **Scope:** This is a controlled, isolated network **microsegmentation** prototype inspired by Zero Trust principles. It is **not** a complete Zero Trust Architecture: it does not implement identity-based authentication, device posture verification, continuous authorization, or enterprise policy orchestration.
 
@@ -214,9 +216,9 @@ The repository includes simulated/control-logic tests under `tests/`; those are 
 - V0.7 collected bounded throughput, TCP connection timing, and WSL guest-wide resource measurements; results do not establish statistically generalizable performance overhead.
 - Results apply to the stated WSL2 environment and recorded runs; they are not a production deployment certification.
 
-**Next milestone:** V1.0 is a documentation-focused research release consolidating the implemented topology, experiment methods, evidence, results, limitations, and WSL2 runtime decision. V1.0 has passed local documentation review and is a release candidate, not yet published. See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md), [`reports/V1.0_RESEARCH_EVIDENCE_INDEX.md`](reports/V1.0_RESEARCH_EVIDENCE_INDEX.md), and [`reports/V1.0_RESEARCH_REPORT.md`](reports/V1.0_RESEARCH_REPORT.md).
+**Current release:** V1.0 is a documentation-focused research release consolidating the implemented topology, experiment methods, evidence, results, limitations, and WSL2 runtime decision. It is published as Git tag `v1.0.0`; the earlier RC1 remains available as historical release evidence. See [`PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md), [`reports/V1.0_RESEARCH_EVIDENCE_INDEX.md`](reports/V1.0_RESEARCH_EVIDENCE_INDEX.md), and [`reports/V1.0_RESEARCH_REPORT.md`](reports/V1.0_RESEARCH_REPORT.md).
 
-## V1.0 research release materials (release candidate)
+## V1.0 research release materials
 
 The following documents support the V1.0
 research documentation phase:
@@ -224,9 +226,10 @@ research documentation phase:
 - [Research Portfolio Summary](docs/V1.0_PORTFOLIO_SUMMARY.md) — concise overview of the implemented network security lab, experimental findings, and research limitations.
 - [Runtime Decision and Reproducibility](docs/V1.0_RUNTIME_DECISION.md) — WSL2 runtime rationale, validated capabilities, safety boundaries, and unresolved VM comparison.
 
-V1.0 has passed local documentation review
-and is a release candidate, not yet released. The verified local
-V0.9 release baseline is Git commit `fb6bbd0`.
+V1.0 is the published formal research release at Git tag `v1.0.0`.
+The verified local V0.9 release baseline is Git commit `fb6bbd0`.
+The prior RC1 remains preserved at
+[`v1.0.0-rc.1`](https://github.com/ZHOUCC-CPU/zero-trust-network-security-lab/releases/tag/v1.0.0-rc.1).
 
 ## Academic and portfolio purpose
 

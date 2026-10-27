@@ -42,13 +42,13 @@ host-wide filtering or identity-based
 Zero Trust enforcement.
 
 V0.9 was locally validated and committed
-as `fb6bbd0`. V1.0 is a research
-documentation release candidate, not a new deployment.
+as `fb6bbd0`. V1.0 is a published research
+documentation release, not a new deployment.
 
 This documentation phase does not authorize
 VM installation, network deployment, Root
 staging changes, firewall modification,
-attack activity, or Git publication.
+attack activity, or production deployment.
 
 ## Source and runtime locations
 
