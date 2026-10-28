@@ -66,8 +66,8 @@ def parse(doc):
         raise ValueError("Expected exactly one target chain")
     chain = chains[0]
     if any(chain.get(k) != v for k, v in
-           (("type", "filter"), ("hook", "forward"), ("policy", "drop"))):
-        raise ValueError("Unexpected chain type, hook or default policy")
+           (("type", "filter"), ("hook", "forward"), ("prio", 0), ("policy", "drop"))):
+        raise ValueError("Unexpected chain type, hook, priority or default policy")
     rules = [entry["rule"] for entry in entries
              if isinstance(entry, dict) and isinstance(entry.get("rule"), dict)
              and all(entry["rule"].get(k) == v for k, v in
@@ -75,7 +75,7 @@ def parse(doc):
     if len(rules) != 4:
         raise ValueError(f"Expected four target rules, found {len(rules)}")
     found = {}
-    for rule in rules:
+    for expected_name, rule in zip(EXPECTED, rules):
         expressions = rule.get("expr")
         if not isinstance(expressions, list) or len(expressions) < 2:
             raise ValueError("Invalid rule expression list")
@@ -99,6 +99,8 @@ def parse(doc):
                 matches.append(name)
         if len(matches) != 1 or matches[0] in found:
             raise ValueError("Unknown or duplicated rule")
+        if matches[0] != expected_name:
+            raise ValueError("Unexpected rule order; policy behavior differs")
         found[matches[0]] = {"packets": counts["packets"], "bytes": counts["bytes"]}
     if set(found) != set(EXPECTED):
         raise ValueError("Missing expected counter")

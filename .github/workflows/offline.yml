@@ -1,0 +1,54 @@
+name: Safe offline checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Explicit allowlist only. Never sudo, execute live probes, deploy/clean
+      # topology, exploit a vulnerability, or change host/namespace firewalls.
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Optimized-mode regressions
+        run: python -O -m unittest discover -s tests -q
+      - name: Bash syntax only
+        run: for script in scripts/*.sh; do bash -n "$script" || exit; done
+      - name: Python syntax and JSON structure
+        run: |
+          python - <<'PYTHON'
+          import ast, json
+          from pathlib import Path
+          for folder in ('scripts', 'tests'):
+              for path in Path(folder).rglob('*.py'):
+                  ast.parse(path.read_text(encoding='utf-8-sig'), filename=str(path))
+              for path in Path(folder).rglob('*.json'):
+                  json.loads(path.read_text(encoding='utf-8-sig'))
+          PYTHON
+      - name: Logic checks (no topology scripts)
+        run: bash tests/test_control_logic.sh
+      - name: Offline policy and evidence self tests
+        run: |
+          python scripts/v06_compare.py --check
+          python scripts/v07_benchmark_orchestrator.py --check
+          python scripts/v07_tcp_latency.py
+          python scripts/v07_iperf3_throughput.py
+          python scripts/v07_resource_metrics.py
+          python scripts/v08_counter_parser.py --self-test
+          python scripts/v08_counter_delta.py --self-test
+          python scripts/v08_evidence_validator.py --self-test
+          python scripts/v08_evidence_validator.py --check-plan tests/v08_audit_plan.json
+          python scripts/v08_live_snapshot.py --check
+          python scripts/v08_root_audit_case.py --check
+          python scripts/v09_resource_integrity.py --self-test
+      - name: Saved V0.8 evidence (read only)
+        run: python scripts/v08_evidence_validator.py --session evidence/v08_runs/audit_20261024T155756056355Z_384 --plan tests/v08_audit_plan.json

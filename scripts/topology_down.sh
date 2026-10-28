@@ -36,7 +36,7 @@ read_state() {
   done
 }
 verify_namespace() {
-  local ns=$1 key=${1//-/_} expected state_key
+  local ns=$1 key=${1//-/_} expected state_key pids
   if ! ns_exists "$ns"; then
     [[ ${PHASE:-} == CREATING || ${PHASE:-} == CLEANING || ${PHASE:-} == FAILED ]] || die "owned namespace is missing before cleanup began: $ns"
     printf 'INFO: namespace absent; treating it as not-created or already cleaned: %s\n' "$ns" >&2
@@ -46,7 +46,10 @@ verify_namespace() {
   expected=${!state_key-}
   [[ -n "$expected" ]] || die "state has no inode for namespace: $ns"
   [[ "$(stat -Lc '%d:%i' -- "/var/run/netns/$ns" 2>/dev/null)" == "$expected" ]] || die "namespace identity mismatch: $ns"
-  [[ -z "$(ip netns pids "$ns" 2>/dev/null)" ]] || die "namespace has running processes: $ns"
+  if ! pids="$(ip netns pids "$ns" 2>/dev/null)"; then
+    die "cannot inspect namespace processes: $ns"
+  fi
+  [[ -z "$pids" ]] || die "namespace has running processes: $ns"
 }
 
 verify_iface() {
