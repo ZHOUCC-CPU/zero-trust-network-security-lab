@@ -31,3 +31,27 @@ NS_employee_ns_INODE=42:9001
 
     def test_process_query_error_refused(self):
         self.assertNotEqual(self.guard(7, ''), 0)
+
+    def namespace_query(self, status, inventory, name='employee-ns'):
+        source = SOURCE.read_text()
+        helper = source[source.index('ns_exists() {'):source.index('\nread_state() {')]
+        # Execute the actual lookup helper with an ip function, never real ip.
+        harness = '''
+set -Eeuo pipefail
+die() { exit 19; }
+ip() { printf '%s' "$FAKE_INVENTORY"; return "$FAKE_STATUS"; }
+'''
+        return subprocess.run(['bash', '-c', harness + helper + '\nif ns_exists "$NAME"; then exit 0; else exit 3; fi'],
+                              env={'PATH': '/usr/bin:/bin', 'FAKE_STATUS': str(status),
+                                   'FAKE_INVENTORY': inventory, 'NAME': name},
+                              capture_output=True, text=True).returncode
+
+    def test_namespace_list_failure_is_fatal(self):
+        self.assertEqual(self.namespace_query(7, ''), 19)
+
+    def test_namespace_absence_distinguished(self):
+        self.assertEqual(self.namespace_query(0, ''), 3)
+
+    def test_namespace_exact_match(self):
+        self.assertEqual(self.namespace_query(0, 'employee-ns (id: 1)\n'), 0)
+        self.assertEqual(self.namespace_query(0, 'not-employee-ns\n'), 3)

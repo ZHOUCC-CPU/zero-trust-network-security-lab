@@ -14,7 +14,13 @@ ACTION_RUNNING=0
 
 usage() { printf 'Usage: %s [--dry-run]\n' "$0"; }
 die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
-ns_exists() { ip netns list | awk '{print $1}' | grep -Fxq "$1"; }
+ns_exists() {
+  local inventory
+  if ! inventory="$(ip netns list)"; then
+    die 'cannot list network namespaces; absence is not proven'
+  fi
+  awk -v wanted="$1" '$1 == wanted {found=1} END {exit !found}' <<< "$inventory"
+}
 read_state() {
   [[ -d "$STATE_DIR" ]] || die "state directory is missing: $STATE_DIR; ownership is not provable"
   [[ "$(stat -c '%u:%a' -- "$STATE_DIR" 2>/dev/null)" == '0:700' ]] || die 'state directory must be root-owned with mode 700'

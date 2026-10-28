@@ -50,3 +50,9 @@ class CounterPolicyTests(unittest.TestCase):
         for doc in (None, {}, {"nftables": []}):
             with self.subTest(doc=doc), self.assertRaises(ValueError):
                 parse(doc)
+
+    def test_boolean_priority_rejected(self):
+        doc = fixture()
+        doc['nftables'][1]['chain']['prio'] = False
+        with self.assertRaises(ValueError):
+            parse(doc)

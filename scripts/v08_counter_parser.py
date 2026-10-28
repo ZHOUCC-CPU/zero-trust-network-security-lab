@@ -65,6 +65,8 @@ def parse(doc):
     if len(chains) != 1:
         raise ValueError("Expected exactly one target chain")
     chain = chains[0]
+    if type(chain.get("prio")) is not int:
+        raise ValueError("Chain priority must be an integer")
     if any(chain.get(k) != v for k, v in
            (("type", "filter"), ("hook", "forward"), ("prio", 0), ("policy", "drop"))):
         raise ValueError("Unexpected chain type, hook, priority or default policy")

@@ -12,6 +12,8 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Read-only compatibility check needs the archived V1 tag.
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
@@ -52,3 +54,5 @@ jobs:
           python scripts/v09_resource_integrity.py --self-test
       - name: Saved V0.8 evidence (read only)
         run: python scripts/v08_evidence_validator.py --session evidence/v08_runs/audit_20261024T155756056355Z_384 --plan tests/v08_audit_plan.json
+      - name: Historical sources and current evidence compatibility (read only)
+        run: python scripts/verify_v101_compatibility.py
