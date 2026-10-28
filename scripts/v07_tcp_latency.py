@@ -25,11 +25,16 @@ def check_plan():
     path = Path("tests/v07_benchmark_plan.json")
     plan = json.loads(path.read_text(encoding="utf-8"))
 
-    assert plan["conditions"] == ["baseline", "segmented"]
-    assert plan["rounds_per_condition"] == 3
-    assert plan["latency"]["method"] == "TCP_CONNECT"
-    assert plan["latency"]["probes_per_flow"] == COUNT
-    assert plan["latency"]["timeout_seconds"] == TIMEOUT
+    if not (plan['conditions'] == ['baseline', 'segmented']):
+        raise ValueError("Invalid benchmark plan: plan['conditions'] == ['baseline', 'segmented']")
+    if not (plan['rounds_per_condition'] == 3):
+        raise ValueError("Invalid benchmark plan: plan['rounds_per_condition'] == 3")
+    if not (plan['latency']['method'] == 'TCP_CONNECT'):
+        raise ValueError("Invalid benchmark plan: plan['latency']['method'] == 'TCP_CONNECT'")
+    if not (plan['latency']['probes_per_flow'] == COUNT):
+        raise ValueError("Invalid benchmark plan: plan['latency']['probes_per_flow'] == COUNT")
+    if not (plan['latency']['timeout_seconds'] == TIMEOUT):
+        raise ValueError("Invalid benchmark plan: plan['latency']['timeout_seconds'] == TIMEOUT")
 
     observed = {
         f["id"]: (
@@ -40,8 +45,10 @@ def check_plan():
         for f in plan["flows"]
     }
 
-    assert observed == FLOWS, "Flow configuration mismatch"
-    assert plan["safety"]["no_external_traffic"] is True
+    if not (observed == FLOWS):
+        raise ValueError('Invalid benchmark plan: observed == FLOWS')
+    if not (plan['safety']['no_external_traffic'] is True):
+        raise ValueError("Invalid benchmark plan: plan['safety']['no_external_traffic'] is True")
 
     print("TCP_LATENCY_PLAN_CHECK=PASS")
     print("ALLOWED_FLOWS=2")
