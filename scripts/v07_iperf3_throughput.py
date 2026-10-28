@@ -31,13 +31,20 @@ def check_plan():
 
     throughput = plan["throughput"]
 
-    assert plan["conditions"] == ["baseline", "segmented"]
-    assert plan["rounds_per_condition"] == 3
-    assert throughput["tool"] == "iperf3"
-    assert throughput["protocol"] == "TCP"
-    assert throughput["duration_seconds"] == DURATION
-    assert throughput["parallel_streams"] == 1
-    assert throughput["target_bitrate_mbps"] == TARGET_MBPS
+    if not (plan['conditions'] == ['baseline', 'segmented']):
+        raise ValueError("Invalid benchmark plan: plan['conditions'] == ['baseline', 'segmented']")
+    if not (plan['rounds_per_condition'] == 3):
+        raise ValueError("Invalid benchmark plan: plan['rounds_per_condition'] == 3")
+    if not (throughput['tool'] == 'iperf3'):
+        raise ValueError("Invalid benchmark plan: throughput['tool'] == 'iperf3'")
+    if not (throughput['protocol'] == 'TCP'):
+        raise ValueError("Invalid benchmark plan: throughput['protocol'] == 'TCP'")
+    if not (throughput['duration_seconds'] == DURATION):
+        raise ValueError("Invalid benchmark plan: throughput['duration_seconds'] == DURATION")
+    if not (throughput['parallel_streams'] == 1):
+        raise ValueError("Invalid benchmark plan: throughput['parallel_streams'] == 1")
+    if not (throughput['target_bitrate_mbps'] == TARGET_MBPS):
+        raise ValueError("Invalid benchmark plan: throughput['target_bitrate_mbps'] == TARGET_MBPS")
 
     configured = {
         f["id"]: (
@@ -48,8 +55,10 @@ def check_plan():
         for f in plan["flows"]
     }
 
-    assert configured == FLOWS
-    assert plan["safety"]["no_external_traffic"] is True
+    if not (configured == FLOWS):
+        raise ValueError('Invalid benchmark plan: configured == FLOWS')
+    if not (plan['safety']['no_external_traffic'] is True):
+        raise ValueError("Invalid benchmark plan: plan['safety']['no_external_traffic'] is True")
 
     print("THROUGHPUT_PLAN_CHECK=PASS")
     print("AUTHORIZED_FLOWS=2")

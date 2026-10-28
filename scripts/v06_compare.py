@@ -282,13 +282,15 @@ def make_report(directory: Path, matrix: list[dict]) -> None:
         raise RuntimeError('Cannot generate PASS report from incomplete/failed run.')
     with (directory / 'scenarios.csv').open(encoding='utf-8', newline='') as fh:
         rows = list(csv.DictReader(fh))
-    assert len(rows) == 36
+    if len(rows) != 36:
+        raise ValueError("Invalid scenario row count")
     comparison = []
     for s in matrix:
         phase_rows = {p: [r for r in rows if r['scenario'] == s['id'] and r['condition'] == p]
                       for p in ('baseline', 'segmented')}
-        assert all(len(pr) == 3 and all(r['verdict'] == 'PASS' for r in pr)
-                   for pr in phase_rows.values())
+        if not all(len(pr) == 3 and all(r['verdict'] == 'PASS' for r in pr)
+                   for pr in phase_rows.values()):
+            raise ValueError('Invalid scenario groups/verdicts')
         comparison.append(f'| `{s["id"]}` | {s["baseline_expected"]} | '
                           f'{s["segmented_expected"]} | 3/3 | 3/3 |')
     stamp_date = datetime.now(timezone.utc).strftime('%Y-%m-%d UTC')

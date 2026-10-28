@@ -14,7 +14,13 @@ ACTION_RUNNING=0
 
 usage() { printf 'Usage: %s [--dry-run]\n' "$0"; }
 die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
-ns_exists() { ip netns list | awk '{print $1}' | grep -Fxq "$1"; }
+ns_exists() {
+  local inventory
+  if ! inventory="$(ip netns list)"; then
+    die 'cannot list network namespaces; absence is not proven'
+  fi
+  awk -v wanted="$1" '$1 == wanted {found=1} END {exit !found}' <<< "$inventory"
+}
 read_state() {
   [[ -d "$STATE_DIR" ]] || die "state directory is missing: $STATE_DIR; ownership is not provable"
   [[ "$(stat -c '%u:%a' -- "$STATE_DIR" 2>/dev/null)" == '0:700' ]] || die 'state directory must be root-owned with mode 700'
@@ -36,7 +42,7 @@ read_state() {
   done
 }
 verify_namespace() {
-  local ns=$1 key=${1//-/_} expected state_key
+  local ns=$1 key=${1//-/_} expected state_key pids
   if ! ns_exists "$ns"; then
     [[ ${PHASE:-} == CREATING || ${PHASE:-} == CLEANING || ${PHASE:-} == FAILED ]] || die "owned namespace is missing before cleanup began: $ns"
     printf 'INFO: namespace absent; treating it as not-created or already cleaned: %s\n' "$ns" >&2
@@ -46,7 +52,10 @@ verify_namespace() {
   expected=${!state_key-}
   [[ -n "$expected" ]] || die "state has no inode for namespace: $ns"
   [[ "$(stat -Lc '%d:%i' -- "/var/run/netns/$ns" 2>/dev/null)" == "$expected" ]] || die "namespace identity mismatch: $ns"
-  [[ -z "$(ip netns pids "$ns" 2>/dev/null)" ]] || die "namespace has running processes: $ns"
+  if ! pids="$(ip netns pids "$ns" 2>/dev/null)"; then
+    die "cannot inspect namespace processes: $ns"
+  fi
+  [[ -z "$pids" ]] || die "namespace has running processes: $ns"
 }
 
 verify_iface() {
